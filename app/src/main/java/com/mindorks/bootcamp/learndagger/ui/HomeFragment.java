@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.mindorks.bootcamp.learndagger.MyApplication;
 import com.mindorks.bootcamp.learndagger.R;
+import com.mindorks.bootcamp.learndagger.di.component.ApplicationComponent;
 import com.mindorks.bootcamp.learndagger.di.component.DaggerActivityComponent;
 import com.mindorks.bootcamp.learndagger.di.module.ActivityModule;
 import javax.inject.Inject;
@@ -101,9 +102,11 @@ public class HomeFragment extends Fragment
 
     public void getDependencies(Context context)
     {
+        //((MyApplication) getActivity().getApplication()
+
         DaggerActivityComponent
                 .builder()
-                .applicationComponent(((MyApplication) context).applicationComponent)
+                .applicationComponent(((MyApplication) ((Activity) context).getApplication()).applicationComponent)
                 .activityModule(new ActivityModule((Activity) context))
                 .build()
                 .injectFragment(this);
