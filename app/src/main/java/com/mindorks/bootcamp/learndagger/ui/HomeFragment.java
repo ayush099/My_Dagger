@@ -2,7 +2,6 @@ package com.mindorks.bootcamp.learndagger.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.mindorks.bootcamp.learndagger.MyApplication;
 import com.mindorks.bootcamp.learndagger.R;
-import com.mindorks.bootcamp.learndagger.di.component.ApplicationComponent;
 import com.mindorks.bootcamp.learndagger.di.component.DaggerActivityComponent;
 import com.mindorks.bootcamp.learndagger.di.module.ActivityModule;
 import javax.inject.Inject;
 import androidx.fragment.app.Fragment;
 
 
-public class HomeFragment extends Fragment
-{
+public class HomeFragment extends Fragment {
 
     @Inject
     HomeViewModel homeViewModel;
@@ -32,10 +29,7 @@ public class HomeFragment extends Fragment
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
-    public HomeFragment()
-    {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -74,34 +68,15 @@ public class HomeFragment extends Fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-
 
         getDependencies(context);
 
     }
 
-    public void getDependencies(Context context)
-    {
+    public void getDependencies(Context context) {
         //((MyApplication) getActivity().getApplication()
 
         DaggerActivityComponent
@@ -111,31 +86,9 @@ public class HomeFragment extends Fragment
                 .build()
                 .injectFragment(this);
 
-        Toast.makeText(context , homeViewModel.getSomeDataHomeViewModel()+"" , Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, homeViewModel.getSomeDataHomeViewModel() + "", Toast.LENGTH_SHORT).show();
 
     }
 
-
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
 }
